@@ -1,0 +1,33 @@
+{
+  "name": "console-dashboard-customizer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "webpack --mode=production"
+  },
+  "devDependencies": {
+    "@openshift-console/dynamic-plugin-sdk": "4.23.0",
+    "@openshift-console/dynamic-plugin-sdk-webpack": "4.23.0",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.0",
+    "webpack": "^5.97.0",
+    "webpack-cli": "^6.0.0",
+    "@types/react": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "consolePlugin": {
+    "name": "dashboard-customizer",
+    "version": "0.1.0",
+    "displayName": "Dashboard Customizer",
+    "description": "Injects custom CSS to customize the OpenShift console overview dashboard layout.",
+    "exposedModules": {
+      "cssLoader": "./src/cssLoader.ts"
+    },
+    "dependencies": {
+      "@console/pluginAPI": "*"
+    }
+  }
+}

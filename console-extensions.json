@@ -1,0 +1,8 @@
+[
+  {
+    "type": "console.flag/hookProvider",
+    "properties": {
+      "handler": { "$codeRef": "cssLoader.handler" }
+    }
+  }
+]

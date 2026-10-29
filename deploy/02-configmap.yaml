@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboard-customizer-styles
+  namespace: dashboard-customizer
+data:
+  custom-styles.css: |
+    /*
+     * Dashboard Customizer — OpenShift Console CSS Overrides
+     *
+     * Edit this ConfigMap to change the console overview layout:
+     *   oc edit configmap dashboard-customizer-styles -n dashboard-customizer
+     *
+     * After editing, restart the pod to pick up changes:
+     *   oc rollout restart deployment/dashboard-customizer -n dashboard-customizer
+     *
+     * Then hard-refresh the console (Ctrl+Shift+R) to clear browser cache.
+     *
+     * TIP: Use browser DevTools (F12 → Elements) to find the exact CSS
+     * class names on the elements you want to customize.
+     */
+
+    /* =====================================================
+     * OVERVIEW DASHBOARD — make it fill the viewport
+     * ===================================================== */
+
+    /* The dashboard body — ensure it stretches to fill available height */
+    .co-dashboard-body {
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 150px);
+    }
+
+    /* The main grid that holds dashboard cards — fill remaining space */
+    .co-dashboard-body > .pf-v6-l-grid,
+    .co-dashboard-body > .pf-v5-l-grid {
+      flex: 1;
+    }
+
+    /* =====================================================
+     * ACTIVITY CARD — stretch to fill the right column
+     * ===================================================== */
+
+    /* The Activity card wrapper — fill its grid cell vertically */
+    .co-dashboard-card.co-activity-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* The Activity card body — take remaining space in the card */
+    .co-dashboard-card.co-activity-card .pf-v6-c-card__body,
+    .co-dashboard-card.co-activity-card .pf-v5-c-card__body,
+    .co-dashboard-card.co-activity-card .co-dashboard-card__body {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* =====================================================
+     * DEBUG HELPERS (uncomment to see layout structure)
+     * ===================================================== */
+
+    /*
+    .co-dashboard-card {
+      outline: 2px dashed rgba(255, 0, 0, 0.3) !important;
+    }
+
+    .co-dashboard-body > .pf-v6-l-grid > *,
+    .co-dashboard-body > .pf-v5-l-grid > * {
+      outline: 2px dashed rgba(0, 0, 255, 0.3) !important;
+    }
+    */

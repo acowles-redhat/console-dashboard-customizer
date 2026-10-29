@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-customizer
+  namespace: dashboard-customizer
+  labels:
+    app: dashboard-customizer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-customizer
+  template:
+    metadata:
+      labels:
+        app: dashboard-customizer
+    spec:
+      containers:
+        - name: nginx
+          image: quay.io/rh-ee-acowles/console-dashboard-customizer:latest
+          ports:
+            - containerPort: 9443
+              protocol: TCP
+          volumeMounts:
+            - name: serving-cert
+              mountPath: /var/serving-cert
+              readOnly: true
+            - name: custom-styles
+              mountPath: /opt/styles
+              readOnly: true
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+      volumes:
+        - name: serving-cert
+          secret:
+            secretName: dashboard-customizer-cert
+        - name: custom-styles
+          configMap:
+            name: dashboard-customizer-styles
